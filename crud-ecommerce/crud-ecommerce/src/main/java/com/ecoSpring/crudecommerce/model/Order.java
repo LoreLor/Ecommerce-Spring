@@ -2,12 +2,32 @@ package com.ecoSpring.crudecommerce.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="ordenes")
 public class Order {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private String number;
     private Date creation;
     private Date reception;
     private double total;
+
+    /*relacion con usuario */
+    @ManyToOne
+    private Usuario usuario;
+
+    @OneToOne(mappedBy = "order")
+    private OrderDetail orderDetail;
 
 
     public Order() {
@@ -62,4 +82,23 @@ public class Order {
     public void setTotal(double total) {
         this.total = total;
     }  
+
+
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
+    public OrderDetail getOrderDetail() {
+        return this.orderDetail;
+    }
+
+    public void setOrderDetail(OrderDetail orderDetail) {
+        this.orderDetail = orderDetail;
+    }
+
 }
