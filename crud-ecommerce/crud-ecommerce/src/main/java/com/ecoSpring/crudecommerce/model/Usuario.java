@@ -1,6 +1,19 @@
 package com.ecoSpring.crudecommerce.model;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="usuarios")
 public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String username;
@@ -9,6 +22,13 @@ public class Usuario {
     private String address;
     private String phone;
     private String rol;
+
+    /*relacion con productos */
+    @OneToMany(mappedBy = "usuario")
+    private List<Product> productos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Order> ordenes;
 
 
     public Usuario() {
@@ -90,4 +110,14 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+
+    public List<Product> getProductos() {
+        return this.productos;
+    }
+
+    public void setProductos(List<Product> productos) {
+        this.productos = productos;
+    }
+
 }
