@@ -101,4 +101,10 @@ public class Order {
         this.orderDetail = orderDetail;
     }
 
+    @Override
+    public String toString() {
+		return "Order [id=" + id + ", number=" + number + ", creation=" + creation + ", reception=" + reception
+				+ ", total=" + total + "]";
+	}
+
 }
