@@ -21,12 +21,11 @@ public class Product {
     private int qty;
 
 
-    /* Atributo para relacionar el producto con el usuario */
+    /* Atributo para relacionar el producto con el usuario JPA */
     @ManyToOne
     private Usuario usuario;
 
-
-
+    /*constructor */
     public Product() {
     }
 
@@ -42,6 +41,7 @@ public class Product {
     }
 
 
+    /*getters - setters */
     public Integer getId() {
         return this.id;
     }
@@ -98,6 +98,7 @@ public class Product {
         this.usuario = usuario;
     }
 
+    /*toString() */
     @Override
     public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", image=" + image

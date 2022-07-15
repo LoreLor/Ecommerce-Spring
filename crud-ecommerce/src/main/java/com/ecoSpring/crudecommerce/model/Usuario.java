@@ -23,14 +23,14 @@ public class Usuario {
     private String phone;
     private String rol;
 
-    /*relacion con productos */
+    /*relacion con productos JPA*/
     @OneToMany(mappedBy = "usuario")
     private List<Product> productos;
 
     @OneToMany(mappedBy = "usuario")
     private List<Order> ordenes;
 
-
+    /*constructores */
     public Usuario() {
     }
 
@@ -46,6 +46,7 @@ public class Usuario {
         this.rol = rol;
     }
 
+    /*getters - setters */
 
     public Integer getId() {
         return this.id;
@@ -120,6 +121,7 @@ public class Usuario {
         this.productos = productos;
     }
 
+    /*toString para ver toda la data */
     @Override
     public String toString() {
 		return "Usuario [id=" + id + ", name=" + name + ", username=" + username + ", email=" + email
