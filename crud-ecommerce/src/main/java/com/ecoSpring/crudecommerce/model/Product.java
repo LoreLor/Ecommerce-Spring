@@ -25,6 +25,7 @@ public class Product {
     @ManyToOne
     private Usuario usuario;
 
+    
     /*constructor */
     public Product() {
     }
