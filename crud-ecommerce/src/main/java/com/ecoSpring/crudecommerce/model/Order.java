@@ -22,7 +22,7 @@ public class Order {
     private Date reception;
     private double total;
 
-    /*relacion con usuario */
+    /*relacion con usuario JPA*/
     @ManyToOne
     private Usuario usuario;
 
@@ -30,6 +30,7 @@ public class Order {
     private OrderDetail orderDetail;
 
 
+    /*constructor */
     public Order() {
     }
 
@@ -43,6 +44,7 @@ public class Order {
     }
 
 
+    /*getters - setters */
     public Integer getId() {
         return this.id;
     }
@@ -101,6 +103,7 @@ public class Order {
         this.orderDetail = orderDetail;
     }
 
+    /*toString() */
     @Override
     public String toString() {
 		return "Order [id=" + id + ", number=" + number + ", creation=" + creation + ", reception=" + reception

@@ -20,16 +20,15 @@ public class OrderDetail {
     private double total;
 
 
-    /*relaciona con detalle de orden */
+    /*relaciona con detalle de orden JPA */
     @OneToOne
     private Order order;
 
-    /*relaciona con producto */
+    /*relaciona con producto JPA*/
     @ManyToOne
     private Product producto;
 
-
-
+    /*constructor */
     public OrderDetail() {
     }
 
@@ -42,9 +41,9 @@ public class OrderDetail {
         this.total = total;
      
     }
-    
 
 
+    /*getters -setters */
     public Integer getId() {
         return this.id;
     }
@@ -101,6 +100,7 @@ public class OrderDetail {
         this.producto = producto;
     }
 
+    /*toString() */
     @Override
     public String toString() {
 		return "OrderDetail [id=" + id + ", name=" + name + ", qty=" + qty + ", price=" + price
