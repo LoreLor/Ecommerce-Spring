@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/products")
 public class ProductController {
+    
     @GetMapping("")   /*aca mapea a productos */
     public String show() {
         return "products/show";
     }
     
+    @GetMapping("/create")
+    public String create(){
+        return "products/create";
+    }
 }
