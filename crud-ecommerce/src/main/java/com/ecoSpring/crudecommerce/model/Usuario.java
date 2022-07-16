@@ -113,11 +113,11 @@ public class Usuario {
     }
 
 
-    public List<Product> getProductos() {
+    public List<Product> getProducts() {
         return this.productos;
     }
 
-    public void setProductos(List<Product> productos) {
+    public void setProducts(List<Product> productos) {
         this.productos = productos;
     }
 
