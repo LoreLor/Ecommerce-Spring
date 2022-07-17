@@ -15,6 +15,8 @@ import com.ecoSpring.crudecommerce.model.Product;
 import com.ecoSpring.crudecommerce.model.Usuario;
 import com.ecoSpring.crudecommerce.service.ProductService;
 
+
+
 @Controller
 @RequestMapping("/products")
 public class ProductController {
@@ -30,12 +32,12 @@ public class ProductController {
         return "products/show";
     }
     
-    @GetMapping("/create")  /*para q me dirija a creacion de producto */
+    @GetMapping(value="/create")  /*para q me dirija a creacion de producto */
     public String create(){
         return "products/create";
     }
 
-    @PostMapping("/save")
+    @PostMapping(value="/save")
     public String save(Product producto){
         LOGGER.info("Este es el objeto producto {}",producto);
 /*para que me tome el usuario admin */
@@ -46,7 +48,7 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping(value="/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         Product producto = new Product();
         Optional<Product> optionalProduct = productService.get(id);
@@ -58,10 +60,17 @@ public class ProductController {
         return "products/edit";
     }
 
-    @PostMapping("/update")
+    @PostMapping(value="/update")
     public String update(Product producto){
         productService.update(producto);
         return "redirect:/products";
     }
+
+    @GetMapping(value="/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        productService.delete(id);
+        return "redirect:/products";
+    }
+    
 
 }
