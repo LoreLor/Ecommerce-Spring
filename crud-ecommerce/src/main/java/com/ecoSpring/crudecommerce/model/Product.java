@@ -106,4 +106,9 @@ public class Product {
 				+ ", price=" + price + ", qty=" + qty +  "]";
 	}
 
+
+    public Product get() {
+        return null;
+    }
+
 }
