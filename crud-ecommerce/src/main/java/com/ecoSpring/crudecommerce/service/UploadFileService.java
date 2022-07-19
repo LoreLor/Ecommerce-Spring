@@ -18,6 +18,7 @@ public class UploadFileService {
             byte [] bytes = file.getBytes();
             Path path = Paths.get(folder+file.getOriginalFilename());
             Files.write(path, bytes);
+            return file.getOriginalFilename();
         }
         return "default.jpg";
     }
