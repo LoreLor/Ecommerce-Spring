@@ -27,48 +27,50 @@ public class ProductController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
+    /*para acceder a los metodos */
     @Autowired
-    private ProductService productService; /*para acceder a los metodos */
+    private ProductService productService; 
 
     @Autowired
     private UploadFileService upload;
     
-    @GetMapping("")   /*aca mapea a productos */
+    /*aca mapea a productos */
+    @GetMapping("")  
     public String show(Model model) {
         model.addAttribute("producto", productService.findAll());
         return "products/show";
-    }
-    
-    @GetMapping(value="/create")  /*para q me dirija a creacion de producto */
+    };
+
+    /*para q me dirija a creacion de producto */
+    @GetMapping(value="/create")  
     public String create(){
         return "products/create";
-    }
+    };
+
 
     @PostMapping(value="/save")
     public String save(Product producto, @RequestParam("img") MultipartFile file) throws IOException{
+
         LOGGER.info("Este es el objeto producto {}",producto);
-/*para que me tome el usuario admin */
+
+        /*para que me tome el usuario admin */
         Usuario user= new Usuario(1,"","","","","","", "");
         producto.setUsuario(user);
 
         //image
-        if(producto.getId()==null){  //cuando se crea el producto
+        //cuando se crea el producto
+        if(producto.getId()==null){  
             String imageName = upload.saveImage(file);
             producto.setImage(imageName);
+          
         }else{
-            if(file.isEmpty()){  //se edita el producto pero no se cambia la imagen
-                Product p = new Product();
-                p = productService.get(producto.getId()).get();
-                producto.setImage(p.getImage());
-            }else{
-                String imageName = upload.saveImage(file);
-                producto.setImage(imageName);
-            }
+           
         }
 
         productService.save(producto);
         return "redirect:/products";
-    }
+    };
+
 
     @GetMapping(value="/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
@@ -80,19 +82,48 @@ public class ProductController {
         model.addAttribute("producto", producto);
 
         return "products/edit";
-    }
+    };
+
 
     @PostMapping(value="/update")
-    public String update(Product producto){
+    public String update(Product producto,  @RequestParam("img") MultipartFile file) throws IOException{
+        Product p = new Product();
+        p = productService.get(producto.getId()).get();
+
+         //se edita el producto pero no se cambia la imagen
+        if(file.isEmpty()){              
+            producto.setImage(p.getImage());
+
+        //se edita tambien la imagen
+        }else{  
+
+        //elimina imagen del servidor si no es la de por defecto
+            if(!p.getImage().equals("default.jpg")){ 
+                upload.deleteImage(p.getImage());
+            }
+
+            String imageName = upload.saveImage(file);
+            producto.setImage(imageName);
+        }
+        
+        producto.setUsuario(p.getUsuario());
         productService.update(producto);
         return "redirect:/products";
-    }
+    };
+
+
 
     @GetMapping(value="/delete/{id}")
     public String delete(@PathVariable Integer id) {
+        Product p= new Product();
+        p = productService.get(id).get();
+
+        //elimina imagen del servidor si no es la de por defecto
+        if(!p.getImage().equals("default.jpg")){  
+            upload.deleteImage(p.getImage());
+        }
+
         productService.delete(id);
         return "redirect:/products";
     }
-    
-
 }
