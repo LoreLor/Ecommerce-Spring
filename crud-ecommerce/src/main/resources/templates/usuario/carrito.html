@@ -56,11 +56,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td >Nombre</td>
-                  <td >Precio</td>
-                  <td>Cantidad</td>
-                  <td >Total</td>
+                <tr th:each="order:${cart}">
+                  <td th:text="${order.name}"></td>
+                  <td  th:text="${order.price}"></td></td>
+                  <td  th:text="${order.qty}"></td></td>
+                  <td  th:text="${order.total}"></td></td>
                   <td><a href="#" class="btn btn-danger">Quitar</a></td>
                 </tr>
               </tbody>
@@ -71,7 +71,7 @@
             <h2 class="card-title">SUBTOTAL</h2>
 
             <ul class="list-group">
-              <li class="list-group-item"><h5>Total: $ 10</h5></li>
+              <li class="list-group-item"><h5 th:text="${order.total}"></h5></li>
               <a href="resumenorden.html" class="btn btn-dark">Ver Orden</a>
             </ul>
           </div>
@@ -82,17 +82,12 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Spring eCommerce 2020</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+
+    <div th:include="usuario/template_usuario.html::footer"></div>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
   </body>
 
   </html>

@@ -15,7 +15,7 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private double qty;
+    private Integer qty;
     private double price;
     private double total;
 
@@ -33,7 +33,7 @@ public class OrderDetail {
     }
 
 
-    public OrderDetail(Integer id, String name, double qty, double price, double total) {
+    public OrderDetail(Integer id, String name, Integer qty, double price, double total) {
         this.id = id;
         this.name = name;
         this.qty = qty;
@@ -60,11 +60,11 @@ public class OrderDetail {
         this.name = name;
     }
 
-    public double getQty() {
+    public Integer getQty() {
         return this.qty;
     }
 
-    public void setQty(double qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
@@ -106,5 +106,10 @@ public class OrderDetail {
 		return "OrderDetail [id=" + id + ", name=" + name + ", qty=" + qty + ", price=" + price
 				+ ", total=" + total + "]";
 	}
+
+
+    public Object stream() {
+        return null;
+    }
 
 }
