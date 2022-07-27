@@ -75,11 +75,19 @@ public class HomeController {
         orderDetail.setTotal(producto.getPrice()*qty);
         orderDetail.setProducto(producto);
 
+        /*Validacion de existencia de item en cart p/evitar duplicados */
+        Integer idProducto = producto.getId();
+        boolean existeProducto = cart.stream().anyMatch(item -> item.getProducto().getId() == idProducto); /*es como un for pero con caracteristica de java8 */
+
+        if(!existeProducto){
+            cart.add(orderDetail);
+        }
+
+
         /*ahora tengo que sumar los totales */
         sumTotal = cart.stream().mapToDouble(dt->dt.getTotal()).sum();
 
         /*Para agregar a la lista */
-        cart.add(orderDetail);
 
         order.setTotal(sumTotal);
         model.addAttribute("cart", cart);
@@ -111,5 +119,12 @@ public class HomeController {
         model.addAttribute("order", order);
 
         return "usuario/carrito";   /*me lleva al directorio del archivo de la vista del carro una vez q se elimina el producto*/
+    }
+
+    @GetMapping("/getCart")
+    public String getCart(Model model){
+        model.addAttribute("cart", cart);
+        model.addAttribute("order", order);
+        return "/usuario/carrito";
     }
 }
