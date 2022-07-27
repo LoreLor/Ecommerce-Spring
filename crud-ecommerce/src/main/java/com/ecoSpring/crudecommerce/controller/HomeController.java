@@ -87,4 +87,29 @@ public class HomeController {
 
         return "usuario/carrito";
     }
+
+    @GetMapping("delete/cart/{id}")
+    public String deleteProductCart(@PathVariable Integer id, Model model){
+        /* lista nueva de productos */
+        List <OrderDetail> newOrderDetail = new ArrayList<OrderDetail>();
+
+        /*es lo que va a recorrer */
+        for(OrderDetail orderDetail: cart)
+        if(orderDetail.getProducto().getId() != id){
+            newOrderDetail.add(orderDetail);
+        }
+
+        /*lista filtrada con eliminacion del id seleccionado */
+        cart = newOrderDetail;
+
+        /*ahora tengo que sumar los totales nuevos para actualizar*/
+        double sumTotal = 0;
+        sumTotal = cart.stream().mapToDouble(dt->dt.getTotal()).sum();
+
+        order.setTotal(sumTotal);
+        model.addAttribute("cart", cart);
+        model.addAttribute("order", order);
+
+        return "usuario/carrito";   /*me lleva al directorio del archivo de la vista del carro una vez q se elimina el producto*/
+    }
 }
